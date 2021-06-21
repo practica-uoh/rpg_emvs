@@ -61,6 +61,8 @@ int main(int argc, char** argv)
   // Create a camera object from the loaded intrinsic parameters
   image_geometry::PinholeCameraModel cam;
   cam.fromCameraInfo(camera_info_msg);
+  LOG(INFO) << "pose: " << FLAGS_pose_topic;
+
 
   // Use linear interpolation to compute the camera pose for each event
   LinearTrajectory trajectory = LinearTrajectory(poses);

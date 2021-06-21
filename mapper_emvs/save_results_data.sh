@@ -1,0 +1,5 @@
+mv confidence_map.png "results/$1_confidence_map.png"
+mv depth_colored.png "results/$1_depth_colored.png"
+mv depth_map.png "results/$1_depth_map.png"
+mv semidense_mask.png "results/$1_semidense_mask.png"
+mv pointcloud.pcd "results/$1_pointcloud.pcd"

@@ -27,8 +27,15 @@ void parse_rosbag(const std::string &rosbag,
   poses_.clear();
   events_.clear();
 
+  LOG(INFO) << "initial stamp: " << topics[2];
+
   rosbag::Bag  bag(rosbag, rosbag::bagmode::Read);
   rosbag::View view(bag, rosbag::TopicQuery(topics));
+
+  LOG(INFO) << "conexiones de view: " << view.getConnections().size();
+
+  LOG(INFO) << "conexiones de view: " << view.getConnections()[2].topic();
+
 
   bool continue_looping_through_bag = true;
   bool got_initial_stamp = false;
@@ -88,9 +95,13 @@ void parse_rosbag(const std::string &rosbag,
       camera_info_msg = *(m.instantiate<sensor_msgs::CameraInfo>());
     }
 
+    LOG(INFO) << "waited topic: " << topics[2];
+    LOG(INFO) << "received topic" << topic_name;
+
     // Pose
     if (topic_name == topics[2])
     {
+
       const geometry_msgs::PoseStamped pose_msg
           = *(m.instantiate<geometry_msgs::PoseStamped>());
       const ros::Time& stamp = pose_msg.header.stamp;
@@ -109,6 +120,8 @@ void parse_rosbag(const std::string &rosbag,
       {
         continue_looping_through_bag = false;
       }
+      LOG(INFO) << "pose position x" << pose_msg.pose.position.x;
+
 
       const Eigen::Vector3d position(pose_msg.pose.position.x,
                                      pose_msg.pose.position.y,
